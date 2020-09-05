@@ -7,4 +7,5 @@ To build:
 ```sh
 . build/envsetup.sh
 lunch omni_a10-eng
-make recoveryimage
+mka recoveryimage
+

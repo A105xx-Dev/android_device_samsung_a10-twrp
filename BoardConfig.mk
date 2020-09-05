@@ -7,7 +7,8 @@ TARGET_NO_RADIOIMAGE := true
 
 # Architecture
 TARGET_ARCH := arm
-TARGET_ARCH_VARIANT := armv7-a-neon
+#TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := cortex-a53
@@ -23,8 +24,8 @@ BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_CMDLINE := androidboot.hardware=exynos7885 androidboot.selinux=permissive
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --board SRPSA10A003
 BOARD_MKBOOTIMG_ARGS += --recovery_dtbo $(TARGET_PREBUILT_RECOVERY_DTBO) --header_version 1
-#BOARD_MKBOOTIMG_ARGS += --os_patch_level
-BOARD_CUSTOM_BOOTIMG_MK :=  device/samsung/a10/bootimg.mk
+#BOARD_CUSTOM_BOOTIMG_MK :=  device/samsung/a10/bootimg.mk
+BOARD_CUSTOM_MKBOOTIMG := device/samsung/a10/mkbootimg
 
 # Platform
 TARGET_BOARD_PLATFORM := exynos5
@@ -51,10 +52,11 @@ TW_HAS_DOWNLOAD_MODE := true
 TW_INCLUDE_NTFS_3G := true
 TW_USE_NEW_MINADBD := true
 TW_NO_LEGACY_PROPS := true
-#TW_USE_TOOLBOX := true
+TW_USE_TOOLBOX := true
 
 # Crypto
 TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_FBE := true
 
-ALLOW_MISSING_DEPENDENCIES=true
+ALLOW_MISSING_DEPENDENCIES := true
+#
