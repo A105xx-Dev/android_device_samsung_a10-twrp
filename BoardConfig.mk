@@ -7,8 +7,7 @@ TARGET_NO_RADIOIMAGE := true
 
 # Architecture
 TARGET_ARCH := arm
-#TARGET_ARCH_VARIANT := armv7-a-neon
-TARGET_ARCH_VARIANT := armv8-a
+TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := cortex-a53
@@ -52,7 +51,10 @@ TW_HAS_DOWNLOAD_MODE := true
 TW_INCLUDE_NTFS_3G := true
 TW_USE_NEW_MINADBD := true
 TW_NO_LEGACY_PROPS := true
-TW_USE_TOOLBOX := true
+#TW_USE_TOOLBOX := true
+
+# if busybox doesn't compile, apply this patch:
+# open external/busybox/busybox-full.config, and change "CONFIG_TELNETD=y" to "# CONFIG_TELNETD is not set"
 
 # Crypto
 TW_INCLUDE_CRYPTO := true
