@@ -1,3 +1,5 @@
+ BUILD_TOP := $(shell pwd)
+
 # Bootloader
 BOARD_VENDOR := samsung
 TARGET_SOC := exynos7885
@@ -7,15 +9,18 @@ TARGET_NO_RADIOIMAGE := true
 
 # Architecture
 TARGET_ARCH := arm
-TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := cortex-a53
 TARGET_CPU_SMP := true
 
-# Kernel                                      
+# Kernel
 TARGET_PREBUILT_KERNEL := device/samsung/a10/prebuilt/Image
 TARGET_PREBUILT_RECOVERY_DTBO := device/samsung/a10/prebuilt/recoverydtbo
+
+PRODUCT_COPY_FILES += \
+$(TARGET_PREBUILT_KERNEL):kernel
 
 # Image
 BOARD_KERNEL_BASE := 0x10000000
@@ -26,9 +31,26 @@ BOARD_MKBOOTIMG_ARGS += --recovery_dtbo $(TARGET_PREBUILT_RECOVERY_DTBO) --heade
 #BOARD_MKBOOTIMG_ARGS += --os_patch_level
 BOARD_CUSTOM_BOOTIMG_MK :=  device/samsung/a10/bootimg.mk
 
+# Vendor
+TARGET_COPY_OUT_VENDOR := vendor
+
 # Platform
 TARGET_BOARD_PLATFORM := exynos5
 TARGET_BOARD_PLATFORM_GPU := mali-g71
+
+# Partition Sizes ( commented sizes approximated)
+BOARD_BOOTIMAGE_PARTITION_SIZE     := 37748736 # 37MB
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 55574528 # 55MB
+BOARD_SYSTEMIMAGE_PARTITION_SIZE   := 3556769792 #3.56GB
+BOARD_CACHEIMAGE_PARTITION_SIZE    := 419430400 # 419MB
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE  := ext4
+BOARD_VENDORIMAGE_PARTITION_SIZE   := 394264576 # 394MB
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_FLASH_BLOCK_SIZE := 4096
+
+# Reserve space for data encryption (26109542400 - 20480)
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 26109521920 # 26GB
+TARGET_USES_MKE2FS := true
 
 # File systems
 BOARD_HAS_LARGE_FILESYSTEM := true
@@ -51,7 +73,7 @@ TW_HAS_DOWNLOAD_MODE := true
 TW_INCLUDE_NTFS_3G := true
 TW_USE_NEW_MINADBD := true
 TW_NO_LEGACY_PROPS := true
-#TW_USE_TOOLBOX := true
+TW_USE_TOOLBOX := true
 
 # Crypto
 TW_INCLUDE_CRYPTO := true
