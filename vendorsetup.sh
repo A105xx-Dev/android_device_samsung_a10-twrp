@@ -17,6 +17,21 @@
 # 	
 # 	Please maintain this if you use this script or any part of it
 #
+#set -o xtrace
+fox_get_target_device() {
+local F="$BASH_ARGV"
+   [ -z "$F" ] && F="$BASH_SOURCE"
+   if [ -n "$F" ]; then
+      local D1=$(dirname "$F")
+      local D2=$(basename "$D1")
+      [ -n "$D2" ] && echo "$D2"
+   fi
+}
+
+if [ -z "$1" -a -z "$FOX_BUILD_DEVICE" ]; then
+   FOX_BUILD_DEVICE=$(fox_get_target_device)
+fi
+
 FDEVICE="a10"
 if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
 	export TARGET_ARCH=arm
